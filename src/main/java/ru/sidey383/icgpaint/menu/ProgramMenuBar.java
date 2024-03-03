@@ -11,6 +11,7 @@ public class ProgramMenuBar extends JMenuBar {
         add(new ImageMenu(userInteractions.getImageInteractions()));
         add(new ColorMenu(userInteractions.getColorInteractions()));
         add(new ToolMenu(userInteractions.getDrawToolInteractions()));
+        add(new AboutItem(userInteractions.getAboutInteraction()));
     }
 
 }

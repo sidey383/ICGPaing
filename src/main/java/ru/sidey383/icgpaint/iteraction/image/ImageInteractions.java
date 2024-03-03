@@ -30,8 +30,9 @@ public class ImageInteractions {
     public static void showErrorDialog(String message) {
         JDialog dialog = new JDialog();
         dialog.setTitle("Error");
-        dialog.setSize(new Dimension(400, 100));
-        dialog.add(new JLabel(message));
+        dialog.setPreferredSize(new Dimension(400, 100));
+        dialog.setMinimumSize(new Dimension(400, 100));
+        dialog.add(new JLabel(message), BorderLayout.CENTER);
         dialog.pack();
         dialog.setAlwaysOnTop(true);
         dialog.setVisible(true);

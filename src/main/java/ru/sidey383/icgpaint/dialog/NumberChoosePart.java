@@ -56,13 +56,16 @@ public abstract class NumberChoosePart extends JPanel {
             int val = Integer.parseInt(textField.getText());
             if (val < min) {
                 textField.setText(Integer.toString(min));
+                wrongDataDialog();
             }
             if (val > max) {
                 textField.setText(Integer.toString(max));
+                wrongDataDialog();
             }
             slider.setValue(val);
         } catch (NumberFormatException ex) {
             textField.setText("1");
+            wrongDataDialog();
             slider.setValue(1);
         }
     }
@@ -71,6 +74,17 @@ public abstract class NumberChoosePart extends JPanel {
         int val = slider.getValue();
         textField.setText(Integer.toString(val));
         setValue(val);
+    }
+
+    public void wrongDataDialog() {
+        JDialog dialog = new JDialog();
+        dialog.setTitle("Wrong data");
+        dialog.setPreferredSize(new Dimension(400, 100));
+        dialog.setMinimumSize(new Dimension(400, 100));
+        dialog.add(new JLabel("Only integer values from " + min + " to " + max + " are available"), BorderLayout.CENTER);
+        dialog.pack();
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
     }
 
 

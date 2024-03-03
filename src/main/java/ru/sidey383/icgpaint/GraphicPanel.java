@@ -18,6 +18,8 @@ public class GraphicPanel extends JPanel implements MouseListener, MouseMotionLi
 
     private static final Color background = Color.WHITE;
 
+    private final JScrollPane scrollPane;
+
     @NotNull
     private BufferedImage bufferImage;
 
@@ -34,6 +36,13 @@ public class GraphicPanel extends JPanel implements MouseListener, MouseMotionLi
         addMouseMotionListener(this);
         DrawToolContext context = new DrawToolContext(bufferImage, this::repaint);
         drawToolContext.allTools().forEach(t -> t.setToolContext(context));
+        scrollPane = new JScrollPane(this);
+        setBackground(Color.GRAY);
+        scrollPane.setBackground(Color.GRAY);
+    }
+
+    public JScrollPane getScrollPane() {
+        return scrollPane;
     }
 
     private static BufferedImage createBaseImage(int width, int height) {
@@ -103,6 +112,8 @@ public class GraphicPanel extends JPanel implements MouseListener, MouseMotionLi
         DrawToolContext context = new DrawToolContext(bufferImage, this::repaint);
         drawToolContext.allTools().forEach(t -> t.setToolContext(context));
         setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
+        scrollPane.updateUI();
+        scrollPane.repaint();
         repaint();
     }
 

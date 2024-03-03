@@ -25,12 +25,8 @@ public class MainFrame extends JFrame{
         ColorHolderImpl colorHolder = new ColorHolderImpl();
         BaseDrawTools baseDrawTools = new BaseDrawTools(colorHolder);
 
-        ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setFocusable(false);
         GraphicPanel graphicPanel = new GraphicPanel(baseDrawTools);
-        scrollPane.add(graphicPanel);
-        scrollPane.setBackground(Color.GRAY);
-        add(scrollPane);
+        add(graphicPanel.getScrollPane());
 
         UserInteractions userInteractions = new UserInteractions(colorHolder, graphicPanel, baseDrawTools);
 

@@ -19,10 +19,14 @@ public class UserInteractions {
     @NotNull
     private final DrawToolInteractions drawToolInteractions;
 
+    @NotNull
+    private final AboutInteraction aboutInteraction;
+
     public UserInteractions(@NotNull ColorHolder colorHolder, @NotNull ImageHolder imageHolder, @NotNull BaseDrawTools baseDrawTools) {
         this.colorInteractions = new ColorInteractions(colorHolder);
         this.imageInteractions = new ImageInteractions(imageHolder);
         this.drawToolInteractions = new DrawToolInteractions(baseDrawTools);
+        this.aboutInteraction = new AboutInteraction();
     }
 
     @NotNull
@@ -38,5 +42,10 @@ public class UserInteractions {
     @NotNull
     public DrawToolInteractions getDrawToolInteractions() {
         return drawToolInteractions;
+    }
+
+    @NotNull
+    public AboutInteraction getAboutInteraction() {
+        return aboutInteraction;
     }
 }

@@ -50,6 +50,7 @@ public class ResizeInteraction implements ComponentInteraction {
         dialog.getContentPane().add(heightChoose);
         dialog.getContentPane().add(applyButton);
         dialog.pack();
+        dialog.setAlwaysOnTop(true);
         dialog.setMinimumSize(dialog.getSize());
         dialog.setVisible(true);
     }
