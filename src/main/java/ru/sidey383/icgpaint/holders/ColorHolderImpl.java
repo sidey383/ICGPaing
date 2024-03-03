@@ -5,14 +5,13 @@ import org.jetbrains.annotations.NotNull;
 import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.function.Consumer;
 
 public class ColorHolderImpl implements ColorHolder {
 
     @NotNull
     private Color color = Color.BLACK;
 
-    private Set<ColorUpdateListener> listeners = new HashSet<>();
+    private final Set<ColorUpdateListener> listeners = new HashSet<>();
 
     public ColorHolderImpl() {}
 

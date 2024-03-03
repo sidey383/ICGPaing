@@ -99,6 +99,35 @@ public class LineDrawTool extends DrawTool implements LineDrawer {
     @Override
     public @Nullable JDialog editDialog() {
         JDialog dialog = new JDialog();
+        final OptionChoosePart typeChoose = getOptionChoosePart();
+        NumberChoosePart numberChoosePart = new NumberChoosePart("Size", 1, 20, lineSize) {
+            @Override
+            protected void setValue(int val) {
+                lineSize = val;
+            }
+        };
+
+        final LineMode startMode = mode;
+        final int startLineSize = lineSize;
+        TerminatePart terminatePart = new TerminatePart(dialog, () -> {
+            lineSize = startLineSize;
+            mode = startMode;
+        });
+
+        dialog.setTitle("Line params");
+        dialog.getContentPane().setLayout(new BoxLayout(dialog.getContentPane(), BoxLayout.Y_AXIS));
+        dialog.getContentPane().add(numberChoosePart);
+        dialog.getContentPane().add(typeChoose);
+        dialog.getContentPane().add(terminatePart);
+        dialog.pack();
+        Dimension dimension = dialog.getSize();
+        dialog.setMinimumSize(dimension);
+
+        return dialog;
+    }
+
+    @NotNull
+    private OptionChoosePart getOptionChoosePart() {
         OptionChoosePart typeChoose = new OptionChoosePart(
                 new OptionChoosePart.Option("Two click") {
                     @Override
@@ -128,30 +157,7 @@ public class LineDrawTool extends DrawTool implements LineDrawer {
             typeChoose.setSelected(1);
         if (mode == holdLineMode)
             typeChoose.setSelected(2);
-        NumberChoosePart numberChoosePart = new NumberChoosePart("Size", 1, 20, lineSize) {
-            @Override
-            protected void setValue(int val) {
-                lineSize = val;
-            }
-        };
-
-        final LineMode startMode = mode;
-        final int startLineSize = lineSize;
-        TerminatePart terminatePart = new TerminatePart(dialog, () -> {
-            lineSize = startLineSize;
-            mode = startMode;
-        });
-
-        dialog.setTitle("Line params");
-        dialog.getContentPane().setLayout(new BoxLayout(dialog.getContentPane(), BoxLayout.Y_AXIS));
-        dialog.getContentPane().add(numberChoosePart);
-        dialog.getContentPane().add(typeChoose);
-        dialog.getContentPane().add(terminatePart);
-        dialog.pack();
-        Dimension dimension = dialog.getSize();
-        dialog.setMinimumSize(dimension);
-
-        return dialog;
+        return typeChoose;
     }
 
     @Override

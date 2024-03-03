@@ -33,9 +33,4 @@ public class ColorInteractions {
         return chooseColorInteraction;
     }
 
-    @NotNull
-    public ColorHolder getColorHolder() {
-        return colorHolder;
-    }
-
 }
