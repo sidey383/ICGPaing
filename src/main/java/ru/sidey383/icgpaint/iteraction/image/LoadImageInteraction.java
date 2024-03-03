@@ -2,6 +2,7 @@ package ru.sidey383.icgpaint.iteraction.image;
 
 import org.jetbrains.annotations.NotNull;
 import ru.sidey383.icgpaint.holders.ImageHolder;
+import ru.sidey383.icgpaint.iteraction.ComponentInteraction;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -11,7 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class LoadImageInteraction {
+public class LoadImageInteraction implements ComponentInteraction {
 
     @NotNull
     private final ImageHolder imageHolder;

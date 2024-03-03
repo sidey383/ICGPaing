@@ -1,4 +1,4 @@
-package ru.sidey383.icgpaint.tools.dialog;
+package ru.sidey383.icgpaint.dialog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,9 +14,7 @@ public class TerminatePart extends JPanel {
             dialog.dispatchEvent(new WindowEvent(dialog, WindowEvent.WINDOW_CLOSING));
         });
         JButton applyButton = new JButton("Apply");
-        applyButton.addActionListener((e) -> {
-            dialog.dispatchEvent(new WindowEvent(dialog, WindowEvent.WINDOW_CLOSING));
-        });
+        applyButton.addActionListener((e) -> dialog.dispatchEvent(new WindowEvent(dialog, WindowEvent.WINDOW_CLOSING)));
         add(cancelButton);
         add(applyButton);
     }

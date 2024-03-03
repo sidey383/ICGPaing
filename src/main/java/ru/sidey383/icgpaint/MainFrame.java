@@ -29,13 +29,14 @@ public class MainFrame extends JFrame{
         scrollPane.setFocusable(false);
         GraphicPanel graphicPanel = new GraphicPanel(baseDrawTools);
         scrollPane.add(graphicPanel);
+        scrollPane.setBackground(Color.GRAY);
         add(scrollPane);
 
-        UserInteractions userInteractions = new UserInteractions(colorHolder, graphicPanel);
+        UserInteractions userInteractions = new UserInteractions(colorHolder, graphicPanel, baseDrawTools);
 
-        add(new PaintToolbar(userInteractions, baseDrawTools), BorderLayout.NORTH);
+        add(new PaintToolbar(userInteractions), BorderLayout.NORTH);
 
-        setJMenuBar(new ProgramMenuBar(userInteractions, graphicPanel));
+        setJMenuBar(new ProgramMenuBar(userInteractions));
         pack();
 
         setVisible(true);

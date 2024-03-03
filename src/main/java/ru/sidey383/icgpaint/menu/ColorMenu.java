@@ -29,14 +29,14 @@ public class ColorMenu extends JMenu {
         for (Map.Entry<Color, String[]> e : staticColors.entrySet()) {
             JMenuItem item = new JMenuItem(e.getValue()[0]);
             item.setToolTipText(e.getValue()[1]);
-            item.addActionListener((ev) -> interactions.getStaticColorInteraction(e.getKey()).applyColor());
+            item.addActionListener((ev) -> interactions.getStaticColorInteraction(e.getKey()).apply(this));
             item.setIcon(new ImageIcon(getColoredImage(e.getKey())));
             staticColorMenu.add(item);
         }
         add(staticColorMenu);
 
         JMenuItem chooseItem = new JMenuItem("ChooseColor");
-        chooseItem.addActionListener((e) -> interactions.getChooseColorInteraction().openMenu(this));
+        chooseItem.addActionListener((e) -> interactions.getChooseColorInteraction().apply(this));
         chooseItem.setToolTipText("Open color choose menu");
         add(chooseItem);
     }

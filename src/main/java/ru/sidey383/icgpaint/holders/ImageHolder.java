@@ -15,8 +15,4 @@ public interface ImageHolder {
 
     void clearImage();
 
-    int width();
-
-    int height();
-
 }

@@ -4,13 +4,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.sidey383.icgpaint.holders.ColorHolder;
 import ru.sidey383.icgpaint.tools.DrawTool;
-import ru.sidey383.icgpaint.tools.dialog.NumberChoosePart;
-import ru.sidey383.icgpaint.tools.dialog.OptionChoosePart;
-import ru.sidey383.icgpaint.tools.dialog.TerminatePart;
+import ru.sidey383.icgpaint.dialog.NumberChoosePart;
+import ru.sidey383.icgpaint.dialog.OptionChoosePart;
+import ru.sidey383.icgpaint.dialog.TerminatePart;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowEvent;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 

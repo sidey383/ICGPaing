@@ -22,7 +22,7 @@ public class ImageMenu extends JMenu {
         add(loadItem);
 
         JMenuItem clearItem = new JMenuItem("Clear");
-        clearItem.addActionListener((e) -> imageInteractions.getClearImageInteraction().apply());
+        clearItem.addActionListener((e) -> imageInteractions.getClearImageInteraction().apply(this));
         clearItem.setToolTipText("Clear image");
         add(clearItem);
     }

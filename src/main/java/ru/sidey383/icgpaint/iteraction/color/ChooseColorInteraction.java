@@ -3,13 +3,14 @@ package ru.sidey383.icgpaint.iteraction.color;
 import org.jetbrains.annotations.NotNull;
 import ru.sidey383.icgpaint.holders.ColorHolder;
 import ru.sidey383.icgpaint.holders.ColorUpdateListener;
+import ru.sidey383.icgpaint.iteraction.ComponentInteraction;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 
-public class ChooseColorInteraction implements ColorUpdateListener, ChangeListener {
+public class ChooseColorInteraction implements ColorUpdateListener, ChangeListener, ComponentInteraction {
 
     @NotNull
     private final JColorChooser colorChooser;
@@ -31,7 +32,8 @@ public class ChooseColorInteraction implements ColorUpdateListener, ChangeListen
         this.dialog.pack();
     }
 
-    public void openMenu(Component parent) {
+    @Override
+    public void apply(Component parent) {
         Point p = parent.getLocationOnScreen();
         dialog.setLocation(p);
         dialog.setAlwaysOnTop(true);

@@ -19,32 +19,22 @@ public class GraphicPanel extends JPanel implements MouseListener, MouseMotionLi
     private static final Color background = Color.WHITE;
 
     @NotNull
-    private Dimension size;
-
-    @NotNull
     private BufferedImage bufferImage;
 
     @NotNull
     private final DrawToolHolder drawToolContext;
 
     public GraphicPanel(@NotNull DrawToolHolder drawToolContext) {
+        super();
         setFocusable(false);
         this.drawToolContext = drawToolContext;
-        size = new Dimension(1000, 1000);
-        bufferImage = createBaseImage(size.width, size.height);
-        setMinimumSize(size);
-        setMaximumSize(size);
-        setPreferredSize(size);
+        setPreferredSize(new Dimension(1000, 1000));
+        bufferImage = createBaseImage(1000, 1000);
         addMouseListener(this);
         addMouseMotionListener(this);
-        setMinimumSize(size);
-        setMaximumSize(size);
-        setSize(size);
         DrawToolContext context = new DrawToolContext(bufferImage, this::repaint);
         drawToolContext.allTools().forEach(t -> t.setToolContext(context));
     }
-
-
 
     private static BufferedImage createBaseImage(int width, int height) {
         BufferedImage image = new BufferedImage(width, height,  imageType);
@@ -55,9 +45,9 @@ public class GraphicPanel extends JPanel implements MouseListener, MouseMotionLi
         return image;
     }
 
-
     @Override
-    public void paint(Graphics g) {
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         g.drawImage(bufferImage, 0, 0, this);
     }
 
@@ -92,13 +82,10 @@ public class GraphicPanel extends JPanel implements MouseListener, MouseMotionLi
 
     @Override
     public void setImage(@NotNull BufferedImage image) {
-        size = new Dimension(image.getWidth(), image.getHeight());
-        setMinimumSize(size);
-        setMaximumSize(size);
-        setSize(size);
         bufferImage = image;
         DrawToolContext context = new DrawToolContext(bufferImage, this::repaint);
         drawToolContext.allTools().forEach(t -> t.setToolContext(context));
+        setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
         repaint();
     }
 
@@ -109,13 +96,13 @@ public class GraphicPanel extends JPanel implements MouseListener, MouseMotionLi
 
     @Override
     public void resizeField(int width, int height) {
-        BufferedImage image = new BufferedImage(size.width, size.height, imageType);
-        Graphics newGraphic = image.getGraphics();
-        newGraphic.drawImage(bufferImage, 0, 0, null);
-        newGraphic.dispose();
+        BufferedImage image = createBaseImage(width, height);
+        Graphics2D gr = image.createGraphics();
+        gr.drawImage(bufferImage, 0, 0, null);
         bufferImage = image;
         DrawToolContext context = new DrawToolContext(bufferImage, this::repaint);
         drawToolContext.allTools().forEach(t -> t.setToolContext(context));
+        setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
         repaint();
     }
 
@@ -123,17 +110,8 @@ public class GraphicPanel extends JPanel implements MouseListener, MouseMotionLi
     public void clearImage() {
         Graphics2D gr = bufferImage.createGraphics();
         gr.setColor(background);
-        gr.fillRect(0, 0, size.width, size.height);
+        gr.fillRect(0, 0, bufferImage.getWidth(), bufferImage.getHeight());
         repaint();
     }
 
-    @Override
-    public int width() {
-        return bufferImage.getWidth();
-    }
-
-    @Override
-    public int height() {
-        return bufferImage.getHeight();
-    }
 }

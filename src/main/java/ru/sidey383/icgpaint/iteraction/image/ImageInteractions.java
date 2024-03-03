@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import ru.sidey383.icgpaint.holders.ImageHolder;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class ImageInteractions {
 
@@ -16,15 +17,20 @@ public class ImageInteractions {
     @NotNull
     private final ClearImageInteraction clearImageInteraction;
 
+    @NotNull
+    private final ResizeInteraction resizeInteraction;
+
     public ImageInteractions(@NotNull ImageHolder holder) {
         this.saveImageInteraction = new SaveImageInteraction(holder);
         this.loadImageInteraction = new LoadImageInteraction(holder);
         this.clearImageInteraction = new ClearImageInteraction(holder);
+        this.resizeInteraction = new ResizeInteraction(holder);
     }
 
     public static void showErrorDialog(String message) {
         JDialog dialog = new JDialog();
         dialog.setTitle("Error");
+        dialog.setSize(new Dimension(400, 100));
         dialog.add(new JLabel(message));
         dialog.pack();
         dialog.setAlwaysOnTop(true);
@@ -45,4 +51,10 @@ public class ImageInteractions {
     public ClearImageInteraction getClearImageInteraction() {
         return clearImageInteraction;
     }
+
+    @NotNull
+    public ResizeInteraction getResizeInteraction() {
+        return resizeInteraction;
+    }
+
 }

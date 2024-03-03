@@ -2,8 +2,11 @@ package ru.sidey383.icgpaint.iteraction.image;
 
 import org.jetbrains.annotations.NotNull;
 import ru.sidey383.icgpaint.holders.ImageHolder;
+import ru.sidey383.icgpaint.iteraction.ComponentInteraction;
 
-public class ClearImageInteraction {
+import java.awt.*;
+
+public class ClearImageInteraction implements ComponentInteraction {
 
     @NotNull
     private final ImageHolder imageHolder;
@@ -12,7 +15,7 @@ public class ClearImageInteraction {
         this.imageHolder = imageHolder;
     }
 
-    public void apply() {
+    public void apply(Component component) {
         imageHolder.clearImage();
     }
 

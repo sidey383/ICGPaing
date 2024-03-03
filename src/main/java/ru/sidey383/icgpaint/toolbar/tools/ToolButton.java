@@ -1,56 +1,35 @@
 package ru.sidey383.icgpaint.toolbar.tools;
 
 import org.jetbrains.annotations.NotNull;
-import ru.sidey383.icgpaint.holders.DrawToolHolder;
-import ru.sidey383.icgpaint.toolbar.BufferedImageIconSetter;
+import ru.sidey383.icgpaint.iteraction.tool.SingleDrawToolInteraction;
+import ru.sidey383.icgpaint.toolbar.InteractionJToggleButton;
 import ru.sidey383.icgpaint.tools.DrawTool;
 
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.image.BufferedImage;
 
-public class ToolButton extends JToggleButton implements ItemListener {
+public class ToolButton extends InteractionJToggleButton<SingleDrawToolInteraction> {
 
-    @NotNull
-    private final DrawToolHolder holder;
-    @NotNull
-    private final DrawTool tool;
-
-    private final Dimension size = new Dimension(40, 40);
+    private boolean isChange = false;
 
 
-    public ToolButton(@NotNull DrawToolHolder holder, @NotNull DrawTool tool, @NotNull BufferedImage icon, @NotNull String description) {
-        super();
-        this.holder = holder;
-        this.tool = tool;
-        setToolTipText(description);
+    public ToolButton(@NotNull SingleDrawToolInteraction singleDrawToolInteraction, @NotNull String icon, @NotNull String description) {
+        super(singleDrawToolInteraction, icon, description);
         addItemListener(this);
-        new BufferedImageIconSetter(this, icon);
-    }
-
-    @Override
-    public Dimension getPreferredSize() {
-        return size;
-    }
-
-    @Override
-    public Dimension getMaximumSize() {
-        return size;
-    }
-
-    @Override
-    public Dimension getMinimumSize() {
-        return size;
     }
 
     public DrawTool getDrawTool() {
-        return tool;
+        return  getInteraction().getDrawTool();
     }
 
     @Override
     public void itemStateChanged(ItemEvent e) {
-        holder.setDrawTool(tool);
+        isChange = true;
+        super.itemStateChanged(e);
+        isChange = false;
     }
+
+    public boolean isChange() {
+        return isChange;
+    }
+
 }

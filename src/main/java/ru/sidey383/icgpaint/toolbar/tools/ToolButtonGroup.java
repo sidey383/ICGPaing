@@ -1,18 +1,14 @@
 package ru.sidey383.icgpaint.toolbar.tools;
 
 import org.jetbrains.annotations.NotNull;
-import ru.sidey383.icgpaint.holders.BaseDrawTools;
 import ru.sidey383.icgpaint.holders.DrawToolUpdateListener;
+import ru.sidey383.icgpaint.iteraction.tool.DrawToolInteractions;
+import ru.sidey383.icgpaint.toolbar.InteractionJButton;
 import ru.sidey383.icgpaint.tools.DrawTool;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
 public class ToolButtonGroup extends ButtonGroup implements DrawToolUpdateListener {
 
@@ -23,17 +19,20 @@ public class ToolButtonGroup extends ButtonGroup implements DrawToolUpdateListen
     private final ToolButton stampButton;
 
     @NotNull
-    private final ToolSettingsButton toolSettingsButton;
+    private final AbstractButton toolSettingsButton;
 
-    public ToolButtonGroup(@NotNull BaseDrawTools tools) {
-        this.lineButton = new ToolButton(tools, tools.getLineDrawTool(), Objects.requireNonNull(loadIcon("/icon/brush.png")), "Line draw instrument");
-        this.fillButton = new ToolButton(tools, tools.getFillDrawTool(), Objects.requireNonNull(loadIcon("/icon/bucket.png")), "Fill instrument");
-        this.stampButton = new ToolButton(tools, tools.getStampDrawTool(), Objects.requireNonNull(loadIcon("/icon/star.png")), "Stamp instrument");
-        this.toolSettingsButton = new ToolSettingsButton(tools, Objects.requireNonNull(loadIcon("/icon/settings.png")));
+    public ToolButtonGroup(@NotNull DrawToolInteractions drawToolInteractions) {
+        this.lineButton = new ToolButton(drawToolInteractions.getLineDrawToolInteraction(), "/icon/brush.png", "Line draw instrument");
+        this.fillButton = new ToolButton(drawToolInteractions.getFillDrawToolInteraction(), "/icon/bucket.png", "Fill instrument");
+        this.stampButton = new ToolButton(drawToolInteractions.getStampDrawToolInteraction(),"/icon/star.png", "Stamp instrument");
         add(lineButton);
         add(fillButton);
         add(stampButton);
-        tools.addListener(this);
+
+        this.toolSettingsButton = new InteractionJButton<>(drawToolInteractions.getDrawToolSettingInteraction(), "/icon/settings.png", "Open settings for current instrument");
+        add(this.toolSettingsButton);
+
+        drawToolInteractions.getDrawToolHolder().addListener(this);
         setSelected(lineButton.getModel(), true);
     }
 
@@ -42,30 +41,18 @@ public class ToolButtonGroup extends ButtonGroup implements DrawToolUpdateListen
     }
 
     @NotNull
-    public ToolSettingsButton getToolSettingsButton() {
+    public AbstractButton getToolSettingsButton() {
         return toolSettingsButton;
-    }
-
-    private BufferedImage loadIcon(String path) {
-        try {
-            URL url = getClass().getResource(path);
-            if (url == null) {
-                return null;
-            }
-            return ImageIO.read(url);
-        } catch (IOException e) {
-            System.out.println("Image load error " + path);
-            return null;
-        }
     }
 
     @Override
     public void onDrawToolUpdate(DrawTool tool) {
-        if (tool == lineButton.getDrawTool() && getSelection().equals(lineButton.getModel()))
-            setSelected(lineButton.getModel(), true);
-        if (tool == fillButton.getDrawTool() && getSelection().equals(fillButton.getModel()))
-            setSelected(fillButton.getModel(), true);
-        if (tool == stampButton.getDrawTool() && getSelection().equals(stampButton.getModel()))
-            setSelected(stampButton.getModel(), true);
+        getToolsButtons().forEach((b) -> {
+            if (tool == b.getDrawTool()) {
+                if (!isSelected(b.getModel()) && !b.isChange()) {
+                    setSelected(b.getModel(), true);
+                }
+            }
+        });
     }
 }

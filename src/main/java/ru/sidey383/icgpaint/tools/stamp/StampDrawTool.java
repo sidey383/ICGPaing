@@ -3,10 +3,9 @@ package ru.sidey383.icgpaint.tools.stamp;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.sidey383.icgpaint.tools.DrawTool;
-import ru.sidey383.icgpaint.tools.dialog.NumberChoosePart;
-import ru.sidey383.icgpaint.tools.dialog.OptionChoosePart;
-import ru.sidey383.icgpaint.tools.dialog.TerminatePart;
-import ru.sidey383.icgpaint.tools.line.LineMode;
+import ru.sidey383.icgpaint.dialog.NumberChoosePart;
+import ru.sidey383.icgpaint.dialog.OptionChoosePart;
+import ru.sidey383.icgpaint.dialog.TerminatePart;
 
 import javax.swing.*;
 import java.awt.*;
@@ -147,7 +146,7 @@ public class StampDrawTool extends DrawTool {
     }
 
     @Override
-    public void click(int x, int y, int button) {
+    public void press(int x, int y, int button) {
         draw(x, y);
     }
 }

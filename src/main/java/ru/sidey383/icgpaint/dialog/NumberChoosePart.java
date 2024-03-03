@@ -1,4 +1,4 @@
-package ru.sidey383.icgpaint.tools.dialog;
+package ru.sidey383.icgpaint.dialog;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -19,6 +19,7 @@ public abstract class NumberChoosePart extends JPanel {
     private final JSlider slider;
 
     public NumberChoosePart(String name, int min, int max, int start) {
+        super();
         this.min = min;
         this.max = max;
         setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -36,7 +37,7 @@ public abstract class NumberChoosePart extends JPanel {
             }
         });
         textField.setMinimumSize(new Dimension(30, 20));
-        textField.setSize(20, 15);
+        textField.setSize( 30, 20);
         textField.setPreferredSize(new Dimension(40, 20));
         add(textField);
         textField.setText(Integer.toString(start));
@@ -60,7 +61,6 @@ public abstract class NumberChoosePart extends JPanel {
                 textField.setText(Integer.toString(max));
             }
             slider.setValue(val);
-
         } catch (NumberFormatException ex) {
             textField.setText("1");
             slider.setValue(1);
