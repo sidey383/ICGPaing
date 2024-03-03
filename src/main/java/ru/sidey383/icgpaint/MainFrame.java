@@ -3,6 +3,7 @@ package ru.sidey383.icgpaint;
 import ru.sidey383.icgpaint.holders.ColorHolderImpl;
 import ru.sidey383.icgpaint.holders.BaseDrawTools;
 import ru.sidey383.icgpaint.iteraction.UserInteractions;
+import ru.sidey383.icgpaint.menu.ProgramMenuBar;
 import ru.sidey383.icgpaint.toolbar.PaintToolbar;
 
 import javax.swing.*;
@@ -14,12 +15,6 @@ public class MainFrame extends JFrame{
         new MainFrame();
     }
 
-    private final ColorHolderImpl colorHolder;
-
-    private final BaseDrawTools baseDrawTools;
-
-    private final GraphicPanel graphicPanel;
-
     public MainFrame() {
         super();
         setTitle("ICG Paint");
@@ -27,19 +22,20 @@ public class MainFrame extends JFrame{
         setSizeAndPosition();
         setFocusable(true);
 
-        this.colorHolder = new ColorHolderImpl();
-        this.baseDrawTools = new BaseDrawTools(colorHolder);
+        ColorHolderImpl colorHolder = new ColorHolderImpl();
+        BaseDrawTools baseDrawTools = new BaseDrawTools(colorHolder);
 
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setFocusable(false);
-        this.graphicPanel = new GraphicPanel(baseDrawTools);
+        GraphicPanel graphicPanel = new GraphicPanel(baseDrawTools);
         scrollPane.add(graphicPanel);
         add(scrollPane);
 
-        UserInteractions userInteractions = new UserInteractions(colorHolder, baseDrawTools, this.graphicPanel);
+        UserInteractions userInteractions = new UserInteractions(colorHolder, graphicPanel);
 
-        add(new PaintToolbar(userInteractions, baseDrawTools, this.graphicPanel), BorderLayout.NORTH);
+        add(new PaintToolbar(userInteractions, baseDrawTools), BorderLayout.NORTH);
 
+        setJMenuBar(new ProgramMenuBar(userInteractions, graphicPanel));
         pack();
 
         setVisible(true);

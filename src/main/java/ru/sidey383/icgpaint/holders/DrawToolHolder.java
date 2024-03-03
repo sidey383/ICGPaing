@@ -14,4 +14,8 @@ public interface DrawToolHolder {
 
     void setDrawTool(@NotNull DrawTool tool);
 
+    void addListener(DrawToolUpdateListener listener);
+
+    void removeListener(DrawToolUpdateListener listener);
+
 }

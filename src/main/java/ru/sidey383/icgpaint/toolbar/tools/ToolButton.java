@@ -30,7 +30,6 @@ public class ToolButton extends JToggleButton implements ItemListener {
         new BufferedImageIconSetter(this, icon);
     }
 
-
     @Override
     public Dimension getPreferredSize() {
         return size;
@@ -44,6 +43,10 @@ public class ToolButton extends JToggleButton implements ItemListener {
     @Override
     public Dimension getMinimumSize() {
         return size;
+    }
+
+    public DrawTool getDrawTool() {
+        return tool;
     }
 
     @Override

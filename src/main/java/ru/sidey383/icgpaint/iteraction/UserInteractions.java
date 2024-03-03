@@ -1,18 +1,22 @@
 package ru.sidey383.icgpaint.iteraction;
 
 import org.jetbrains.annotations.NotNull;
-import ru.sidey383.icgpaint.holders.BaseDrawTools;
 import ru.sidey383.icgpaint.holders.ColorHolder;
 import ru.sidey383.icgpaint.holders.ImageHolder;
 import ru.sidey383.icgpaint.iteraction.color.ColorInteractions;
+import ru.sidey383.icgpaint.iteraction.image.ImageInteractions;
 
 public class UserInteractions {
 
     @NotNull
     private final ColorInteractions colorInteractions;
 
-    public UserInteractions(@NotNull ColorHolder colorHolder, @NotNull BaseDrawTools drawToolContext, @NotNull ImageHolder imageHolder) {
+    @NotNull
+    private final ImageInteractions imageInteractions;
+
+    public UserInteractions(@NotNull ColorHolder colorHolder, @NotNull ImageHolder imageHolder) {
         this.colorInteractions = new ColorInteractions(colorHolder);
+        this.imageInteractions = new ImageInteractions(imageHolder);
     }
 
     @NotNull
@@ -20,4 +24,8 @@ public class UserInteractions {
         return colorInteractions;
     }
 
+    @NotNull
+    public ImageInteractions getImageInteractions() {
+        return imageInteractions;
+    }
 }

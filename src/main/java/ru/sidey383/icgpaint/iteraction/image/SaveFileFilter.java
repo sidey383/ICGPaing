@@ -1,4 +1,4 @@
-package ru.sidey383.icgpaint.toolbar.image;
+package ru.sidey383.icgpaint.iteraction.image;
 
 import javax.swing.filechooser.FileFilter;
 import java.io.File;

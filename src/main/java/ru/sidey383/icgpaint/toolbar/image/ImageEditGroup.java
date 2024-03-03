@@ -1,7 +1,7 @@
 package ru.sidey383.icgpaint.toolbar.image;
 
 import org.jetbrains.annotations.NotNull;
-import ru.sidey383.icgpaint.holders.ImageHolder;
+import ru.sidey383.icgpaint.iteraction.image.ImageInteractions;
 
 import javax.swing.*;
 import java.util.Collection;
@@ -13,22 +13,16 @@ public class ImageEditGroup {
 
     private final LoadButton loadButton;
 
-    public ImageEditGroup(@NotNull ImageHolder holder) {
-        this.saveButton = new SaveButton(holder);
-        this.loadButton = new LoadButton(holder);
+    private final ClearButton clearButton;
+
+    public ImageEditGroup(@NotNull ImageInteractions imageInteractions) {
+        this.saveButton = new SaveButton(imageInteractions.getSaveImageInteraction());
+        this.loadButton = new LoadButton(imageInteractions.getLoadImageInteraction());
+        this.clearButton = new ClearButton(imageInteractions.getClearImageInteraction());
     }
 
     public Collection<JComponent> getButtons() {
-        return List.of(saveButton, loadButton);
-    }
-
-    public static void showErrorDialog(String message) {
-        JDialog dialog = new JDialog();
-        dialog.setTitle("Error");
-        dialog.add(new JLabel(message));
-        dialog.pack();
-        dialog.setAlwaysOnTop(true);
-        dialog.setVisible(true);
+        return List.of(saveButton, loadButton, clearButton);
     }
 
 }
